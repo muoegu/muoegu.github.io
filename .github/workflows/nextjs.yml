@@ -44,6 +44,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build with Next.js
+        env:
+          NEXT_PUBLIC_MICROCMS_SERVICE_DOMAIN: ${{ secrets.NEXT_PUBLIC_MICROCMS_SERVICE_DOMAIN }}
+          NEXT_PUBLIC_MICROCMS_API_KEY: ${{ secrets.NEXT_PUBLIC_MICROCMS_API_KEY }}
         run: pnpm next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
