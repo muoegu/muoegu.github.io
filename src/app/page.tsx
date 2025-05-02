@@ -1,5 +1,5 @@
 // import MainVisual from "@/components/MainVisual";
-// import News from "@/components/News";
+import News from "@/components/News";
 // import About from "@/section/About";
 // import CompanyInfo from "@/section/CompanyInfo";
 // import Services from "@/section/Services";
@@ -12,7 +12,7 @@ export default function Home() {
       {/* <About /> */}
       {/* <Services /> */}
       {/* <CompanyInfo /> */}
-      {/* <News /> */}
+      <News />
       {/* <InfoBar /> */}
       {/* <MainVisual /> */}
     </Flex>
