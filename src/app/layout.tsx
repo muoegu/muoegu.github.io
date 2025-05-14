@@ -9,9 +9,11 @@ import {
   Image,
   ColorSchemeScript,
   createTheme,
+  Anchor,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import Footer from "@/components/Footer";
+import NavLink from "@/components/NavLink";
 // import NavLink from "@/components/NavLink";
 // import MobileNavLink from "@/components/MobileNavLink";
 // import { Zen_Maru_Gothic } from "next/font/google";
@@ -31,19 +33,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   const [opened, { toggle }] = useDisclosure();
-  const logo = "/images/logo.png";
+  const logo = "/images/lope-logo.jpg";
 
   return (
     <html lang="en">
       <head>
-        <title>知識本體、語言處理與人文計算實驗室 | 台大語言學研究所</title>
+        <title>The LOPE Lab</title>
         <link rel="icon" href="/favicon.ico" />
         <ColorSchemeScript />
       </head>
       <body>
         <MantineProvider theme={theme}>
           <AppShell
-            header={{ height: 60 }}
+            header={{ height: 40 }}
             navbar={{
               width: 300,
               breakpoint: "sm",
@@ -52,15 +54,17 @@ export default function RootLayout({
             // padding="md"
           >
             <AppShell.Header>
-              <Flex mx={"md"} justify={"space-between"} align={"center"}>
+              <Flex mx={"md"} align={"center"} gap={"md"}>
                 <Flex gap="md">
-                  <Image
-                    h={60}
-                    w={60}
-                    src={logo}
-                    alt="Logo"
-                    style={{ cursor: "pointer" }}
-                  />
+                  <Anchor href="/" style={{ textDecoration: "none" }}>
+                    <Image
+                      h={40}
+                      w={40}
+                      src={logo}
+                      alt="Logo"
+                      style={{ cursor: "pointer" }}
+                    />
+                  </Anchor>
                 </Flex>
                 <Burger
                   opened={opened}
@@ -69,11 +73,13 @@ export default function RootLayout({
                   size="sm"
                   m={"sm"}
                 />
-                {/* <Flex gap={"sm"} visibleFrom="sm">
-                  <UnstyledButton>
-                    <Anchor fw={700} href="/ai-in-taiwan" c="#1c9770"></Anchor>
-                  </UnstyledButton>
-                </Flex> */}
+                <Flex gap={"sm"} visibleFrom="sm">
+                  <NavLink href="#news" label="最新" />
+                  <NavLink href="#news" label="關於" />
+                  <NavLink href="#news" label="資源" />
+                  <NavLink href="#news" label="成員" />
+                  <NavLink href="#news" label="成果" />
+                </Flex>
               </Flex>
             </AppShell.Header>
 

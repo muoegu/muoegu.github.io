@@ -7,7 +7,6 @@ import {
   Text,
   Title,
   Badge,
-  Group,
   Button,
   Flex,
 } from "@mantine/core";
@@ -19,6 +18,8 @@ type NewsItem = {
   id: string;
   title: string;
   content: string;
+  date: string;
+  tag: string;
   categories?: { id: string; name: string }[];
 };
 
@@ -33,7 +34,7 @@ export default function News() {
           endpoint: "news",
           queries: {
             fields: "id,title,content,categories",
-            limit: 10,
+            limit: 4,
           },
         });
         setPosts(data.contents);
@@ -48,12 +49,9 @@ export default function News() {
 
   return (
     <Container style={{ marginTop: "40px", marginBottom: "40px" }}>
-      <Title mt={"lg"} order={1} c={"gray"}>
-        News
+      <Title order={1} ta="center" m={"xl"}>
+        最新消息
       </Title>
-      <Text fw={600} mb={"md"}>
-        お知らせ
-      </Text>
 
       <Grid gutter="lg">
         {posts.map((post) => (
@@ -63,16 +61,18 @@ export default function News() {
               padding="lg"
               radius="md"
               withBorder
+              h={200}
               style={{ cursor: "pointer" }}
               onClick={() => router.push(`/news/${post.id}`)}
             >
-              <Group style={{ marginBottom: "10px" }}>
-                {post.categories?.map((category) => (
-                  <Badge key={category.id} color="teal" variant="light">
-                    {category.name || "カテゴリなし"}
-                  </Badge>
-                ))}
-              </Group>
+              <Flex gap={"sm"}>
+                {/* <Text size="xs" c="dimmed">
+                  {post.date.split("T")[0]}
+                </Text> */}
+                <Badge color="blue" variant="light">
+                  {post.tag}
+                </Badge>
+              </Flex>
 
               <Text fw={700} size="lg" style={{ marginBottom: "10px" }}>
                 {post.title || "タイトルなし"}
@@ -97,7 +97,7 @@ export default function News() {
           mt="md"
           onClick={() => router.push(`/news`)}
         >
-          お知らせ一覧
+          更多
         </Button>
       </Flex>
     </Container>
