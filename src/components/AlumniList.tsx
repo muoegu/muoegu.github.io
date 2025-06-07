@@ -1,64 +1,29 @@
-"use client";
+import { Container, Text, SimpleGrid, Group } from "@mantine/core";
+import { Alumni } from "@/types/alumni";
 
-import { Container, Text, Flex } from "@mantine/core";
-import { useEffect, useState } from "react";
-import { client } from "../../libs/client";
-
-type NewsItem = {
-  id: string;
-  title: string;
-  content: string;
-  categories?: { id: string; name: string }[];
-  englishName: string;
-  chineseName: string;
-  degree: string;
+type Props = {
+  data: Alumni[];
+  tagId?: string;
 };
 
-export default function AlumniList() {
-  const [posts, setPosts] = useState<NewsItem[]>([]);
-
-  useEffect(() => {
-    async function fetchPosts() {
-      try {
-        const data = await client.get({
-          endpoint: "member",
-          queries: {
-            // fields: "id,title,content,categories",
-            filters: "type[contains]alumni",
-            limit: 10,
-          },
-        });
-        setPosts(data.contents);
-        console.log(data);
-      } catch (error) {
-        console.error("Error fetching posts:", error);
-      }
-    }
-
-    fetchPosts();
-  }, []);
+export default function AlumniList({ data, tagId }: Props) {
+  const filtered = tagId
+    ? data.filter(a => (a.tag ?? []).some(t => t._id === tagId))
+    : data;
 
   return (
-    <Container style={{ marginTop: "40px", marginBottom: "40px" }}>
-      {/* <Grid gutter="lg"> */}
-      {posts.map((post) => (
-        //   <Grid.Col key={post.id} span={{ base: 12, sm: 6 }}>
-        <Flex key={post.id} direction={"row"}>
-          <Text fw={700} size="lg" style={{ marginBottom: "10px" }}>
-            {post.englishName || ""}
-          </Text>
-          <Text> | </Text>
-          <Text size="lg" style={{ marginBottom: "10px" }}>
-            {post.chineseName || ""}
-          </Text>
-          <Text>,</Text>
-          <Text size="lg" style={{ marginBottom: "10px" }}>
-            {post.degree || ""}
-          </Text>
-        </Flex>
-        //   </Grid.Col>/
-      ))}
-      {/* </Grid> */}
+    <Container>
+      <SimpleGrid cols={{ base: 1, md: 2 }} spacing="lg">
+        {filtered.map((a) => (
+          <Group gap={"xs"} key={a._id}>
+            <Text fw={700}>{a.english_name}</Text>
+            <Text>｜</Text>
+            <Text>{a.chinese_name}</Text>
+            <Text>,</Text>
+            <Text>{a.degree}</Text>
+          </Group>
+        ))}
+      </SimpleGrid>
     </Container>
   );
 }
