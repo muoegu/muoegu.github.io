@@ -1,0 +1,15 @@
+{
+  "Header": {
+    "navlink": {
+      "home": "Home",
+      "about": "關於",
+      "news": "最新資訊",
+      "resources": "資源",
+      "member": "成員",
+      "publication": "成果"
+    }
+  },
+  "Footer": {
+    "mainTitle": "聯絡我們"
+  }
+}

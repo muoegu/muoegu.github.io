@@ -1,13 +1,14 @@
-"use client";
-
 import { Box, Text, Flex, Title } from "@mantine/core";
+import { useTranslations } from "next-intl";
 
 export default function Footer() {
+  const t = useTranslations("Footer");
+
   return (
     <Box bg="gray">
       <Flex direction={"column"} align={"center"}>
         <Title order={2} ta="center" mt={"xl"} mb={"sm"} c={"white"}>
-          聯絡我們
+          {t("mainTitle")}
         </Title>
 
         <Text c={"white"}>謝舒凱老師 email : shukaihsieh@ntu.edu.tw</Text>

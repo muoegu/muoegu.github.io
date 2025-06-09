@@ -1,4 +1,4 @@
-import { getMessages, defaultLocale } from "@/lib/i18n";
+import { getMessages, locales } from "@/lib/i18n";
 import MainVisual from "@/components/MainVisual";
 import { client } from "@/sanity/client";
 import Member from "@/section/Member";
@@ -11,6 +11,17 @@ import type { Locale, Messages } from "@/types/i18n";
 import I18nProvider from "@/components/I18nProvider";
 
 
+export async function getStaticPaths() {
+  const paths = locales
+    .filter((l) => l !== "zh")
+    .map((locale) => ({
+      params: { locale },
+    }));
+  return { paths, fallback: false };
+}
+
+
+
 type HomeProps = {
   alumni: AlumniType[];
   resources: Resource[];
@@ -18,8 +29,10 @@ type HomeProps = {
   messages: Messages;
 };
 
-export async function getStaticProps() {
-  const messages = await getMessages(defaultLocale);
+export async function getStaticProps({ params }: { params: { locale: Locale } }) {
+  const { locale } = params;
+
+  const messages = await getMessages(locale);
 
   const alumni = await client.fetch(
     `*[_type == "alumni"] | order(order asc){
@@ -48,13 +61,13 @@ export async function getStaticProps() {
     props: {
       alumni,
       resources,
-      locale: defaultLocale,
+      locale,
       messages,
     },
   };
 }
 
-export default function Home({ alumni, resources, locale, messages }: HomeProps) {
+export default function LocalizedHome({ alumni, resources, locale, messages }: HomeProps) {
   return (
     <I18nProvider locale={locale} messages={messages}>
       <Flex direction={"column"} mb={"lg"}>

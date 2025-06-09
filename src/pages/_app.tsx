@@ -11,6 +11,7 @@ import { useDisclosure } from "@mantine/hooks";
 import Footer from "@/components/Footer";
 import type { AppProps } from "next/app";
 import Header from "@/components/Header";
+import I18nProvider from "@/components/I18nProvider";
 
 const menuItems = [
   { label: "最新", href: "/" },
@@ -24,44 +25,47 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <ColorSchemeScript />
-      <MantineProvider>
-        <AppShell
-          header={{ height: 60 }}
-          navbar={{
-            width: 300,
-            breakpoint: "sm",
-            collapsed: { desktop: true, mobile: !opened },
-          }}
-        >
-          <AppShell.Header>
-            <Header opened={opened} toggle={toggle} />
-          </AppShell.Header>
 
-          <AppShell.Navbar
-            py="md"
-            px={4}
-            style={{
-              backgroundColor: "rgba(255, 255, 255, 0.7)",
-              backdropFilter: "blur(10px)",
+      <MantineProvider>
+        <I18nProvider locale={pageProps.locale} messages={pageProps.messages}>
+          <AppShell
+            header={{ height: 60 }}
+            navbar={{
+              width: 300,
+              breakpoint: "sm",
+              collapsed: { desktop: true, mobile: !opened },
             }}
           >
-            <Stack align="center" justify="space-between" gap="xl">
-              {menuItems.map((item, index) => (
-                <Anchor key={index} href={item.href} onClick={() => toggle()}>
-                  <Text size="lg" fw={700} c={"#659AD2"}>
-                    {item.label}
-                  </Text>
-                </Anchor>
-              ))}
-            </Stack>
-          </AppShell.Navbar>
+            <AppShell.Header>
+              <Header opened={opened} toggle={toggle} />
+            </AppShell.Header>
 
-          <AppShell.Main>
-            <Component {...pageProps} />
-          </AppShell.Main>
+            <AppShell.Navbar
+              py="md"
+              px={4}
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.7)",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              <Stack align="center" justify="space-between" gap="xl">
+                {menuItems.map((item, index) => (
+                  <Anchor key={index} href={item.href} onClick={() => toggle()}>
+                    <Text size="lg" fw={700} c={"#659AD2"}>
+                      {item.label}
+                    </Text>
+                  </Anchor>
+                ))}
+              </Stack>
+            </AppShell.Navbar>
 
-          <Footer />
-        </AppShell>
+            <AppShell.Main>
+              <Component {...pageProps} />
+            </AppShell.Main>
+
+            <Footer />
+          </AppShell>
+        </I18nProvider>
       </MantineProvider>
     </>
   );

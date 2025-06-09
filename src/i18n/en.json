@@ -1,0 +1,15 @@
+{
+  "Header": {
+    "navlink": {
+      "home": "Home",
+      "about": "About",
+      "news": "News",
+      "resources": "Resources",
+      "member": "Member",
+      "publication": "Publication"
+    }
+  },
+  "Footer": {
+    "mainTitle": "Contact Us"
+  }
+}

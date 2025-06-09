@@ -1,5 +1,7 @@
 import { Flex, Burger, Anchor, Image } from "@mantine/core";
 import NavLink from "@/components/NavLink";
+import { useTranslations } from "next-intl";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Header({
   opened,
@@ -8,12 +10,14 @@ export default function Header({
   opened: boolean;
   toggle: () => void;
 }) {
+  const t = useTranslations("Header");
+
   const navLinks = [
-    { href: "#services", key: "最新" },
-    { href: "#news", key: "關於" },
-    { href: "＃companyInfo", key: "資源" },
-    { href: "#contact", key: "成員" },
-    { href: "#contact", key: "成果" },
+    { href: "#services", key: "news" },
+    { href: "#news", key: "about" },
+    { href: "＃companyInfo", key: "resources" },
+    { href: "#contact", key: "member" },
+    { href: "#contact", key: "publication" },
   ];
 
   return (
@@ -29,17 +33,23 @@ export default function Header({
         <Anchor href="/" style={{ textDecoration: "none" }}>
           <Image
             h={60}
-            w={80}
-            src="/images/lope-logo.png"
+            w={60}
+            src="/images/lope-logo.jpg"
             alt="Logo"
             style={{ cursor: "pointer" }}
           />
         </Anchor>
       </Flex>
-      <Flex gap={"sm"} visibleFrom="sm">
+      <Flex gap={"sm"} visibleFrom="sm" align={"center"}>
         {navLinks.map((item) => (
-          <NavLink key={item.key} href={item.href} label={item.key} />
+          <NavLink
+            key={item.key}
+            href={item.href}
+            label={t(`navlink.${item.key}`)}
+          />
         ))}
+
+        <LanguageSwitcher />
       </Flex>
     </Flex>
   );
