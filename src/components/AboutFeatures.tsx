@@ -1,4 +1,3 @@
-"use client";
 
 import { Title, Text, Grid, Flex, Image } from "@mantine/core";
 import React from "react";

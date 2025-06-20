@@ -4,11 +4,11 @@ import { client } from "@/sanity/client";
 import Member from "@/section/Member";
 import { Flex } from "@mantine/core";
 import Alumni from "@/section/Alumni";
-import Resources from "@/section/Resources";
 import type { Alumni as AlumniType } from "@/types/alumni";
 import type { Resource } from "@/types/resource";
 import type { Locale, Messages } from "@/types/i18n"; 
 import I18nProvider from "@/components/I18nProvider";
+import About from "@/section/About";
 
 
 export async function getStaticPaths() {
@@ -73,6 +73,7 @@ export default function LocalizedHome({ alumni, resources, locale, messages }: H
       <Flex direction={"column"} mb={"lg"}>
         <MainVisual />
         {/* <Resources data={resources} /> */}
+        <About/>
 
         <div id="services">{/* <Services /> */}</div>
         <div id="companyInfo">{/* <CompanyInfo /> */}</div>

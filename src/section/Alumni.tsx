@@ -2,12 +2,15 @@ import AlumniList from '@/components/AlumniList';
 import { Container, Title } from '@mantine/core';
 import React from 'react';
 import type { Alumni } from '@/types/alumni';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   alumni: Alumni[];
 };
 
 export default function Alumni({ alumni }: Props) {
+  const t = useTranslations("Member");
+
   return (
     <Container>
       <Title order={1} ta="center" m={"xl"}>

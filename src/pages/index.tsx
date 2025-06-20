@@ -9,6 +9,7 @@ import type { Alumni as AlumniType } from "@/types/alumni";
 import type { Resource } from "@/types/resource";
 import type { Locale, Messages } from "@/types/i18n"; 
 import I18nProvider from "@/components/I18nProvider";
+import About from "@/section/About";
 
 
 type HomeProps = {
@@ -60,7 +61,7 @@ export default function Home({ alumni, resources, locale, messages }: HomeProps)
       <Flex direction={"column"} mb={"lg"}>
         <MainVisual />
         {/* <Resources data={resources} /> */}
-
+        <About/>
         <div id="services">{/* <Services /> */}</div>
         <div id="companyInfo">{/* <CompanyInfo /> */}</div>
         <div id="news">{/* <News posts={posts} /> */}</div>
